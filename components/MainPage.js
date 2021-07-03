@@ -10,13 +10,15 @@ const { Option } = Select;
 function MainPage() {
     const [missions, setMissions] = useState([]);
     const [year, setYear] = useState(null)
-    const [youtubeVideo, setYoutubeVideo] = useState("")
+    const [youtubeVideo, setYoutubeVideo] = useState("");
+    const [videoTitle, setVideoTitle] = useState("")
 
     // Video Modal
     const [isVideoVisible, setIsVideoVisible] = useState(false);
-    const showVideoModal = (code) => {
+    const showVideoModal = (code, title) => {
         setIsVideoVisible(true);
         setYoutubeVideo(code);
+        setVideoTitle(title)
     };
 
     console.log(isVideoVisible)
@@ -230,7 +232,9 @@ function MainPage() {
                                 </Col>
                                 {mission.links.youtube_id &&
                                     <Col span={24} >
-                                        <Button className="float-right mr-4" type="primary" size="large" onClick={() => showVideoModal(mission.links.youtube_id)}>
+                                        <Button className="float-right mr-4" type="primary" size="large" onClick={() => {
+                                            showVideoModal(mission.links.youtube_id, mission.mission_name);
+                                        }}>
                                             ▷    Launch Video
                                         </Button>
                                     </Col>
@@ -242,7 +246,7 @@ function MainPage() {
 
 
             </div>
-            <VideoModal visible={isVideoVisible} setIsVideoVisible={setIsVideoVisible} youtubeVideo={youtubeVideo} />
+            <VideoModal visible={isVideoVisible} setIsVideoVisible={setIsVideoVisible} youtubeVideo={youtubeVideo} videoTitle={videoTitle} />
         </>
     )
 }
