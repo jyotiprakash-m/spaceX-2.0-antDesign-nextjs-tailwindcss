@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import MainPage from '../components/MainPage'
+import axios from "axios";
 
 export default function Home() {
   return (

@@ -1,19 +1,122 @@
-import { Col, Divider, Row, Input, Select, BackTop } from 'antd'
-import React from 'react'
+import { Col, Divider, Row, Input, Select, BackTop, message, Image, Card, Button } from 'antd'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
+import { YoutubeFilled } from '@ant-design/icons';
+import VideoModal from "../modals/VideoModal"
+
 const { Search } = Input;
 const { Option } = Select;
 function MainPage() {
-    const onSearch = value => console.log(value);
-    function onSearchYear(val) {
-        console.log('Year:', val);
+    const [missions, setMissions] = useState([]);
+    const [year, setYear] = useState(null)
+    const [youtubeVideo, setYoutubeVideo] = useState("")
+
+    // Video Modal
+    const [isVideoVisible, setIsVideoVisible] = useState(false);
+    const showVideoModal = (code) => {
+        setIsVideoVisible(true);
+        setYoutubeVideo(code);
+    };
+
+    console.log(isVideoVisible)
+    // Run when the component first time load
+    useEffect(() => {
+        const fetchMissions = async () => {
+            const response = await axios.get("https://api.spaceXdata.com/v3/launches?limit=200");
+            !(response == undefined || response == null) & setMissions(response.data);
+        }
+        fetchMissions();
+    }, []);
+
+    // Search Missions filter
+    const onSearch = async (value) => {
+        try {
+
+            if (value === "" || value == null || value == undefined) {
+                const response = await axios.get("https://api.spaceXdata.com/v3/launches?limit=200");
+                !(response == undefined || response == null) & setMissions(response.data);
+                message.warning("Please Enter the valid flight number (1-111)")
+            }
+            else {
+
+                const response = await axios.get(`https://api.spacexdata.com/v3/launches?limit=200&flight_number=${value}`);
+                if (response.data.length === 0) {
+                    message.warning("Data not Found")
+                } else {
+
+                    !(response == undefined || response == null) & setMissions(response.data);
+                    console.log(response.data.length)
+                }
+            }
+        } catch (err) {
+            message.error("something wrong")
+        }
+    };
+    const onSearchYear = async (value) => {
+        try {
+            if (value === "") {
+                const response = await axios.get("https://api.spaceXdata.com/v3/launches?limit=200");
+                !(response == undefined || response == null) & setMissions(response.data);
+                message.warning("Year value unset")
+            } else {
+
+                const response = await axios.get(`https://api.spaceXdata.com/v3/launches?limit=200&launch_year=${value}`);
+                !(response == undefined || response == null) & setMissions(response.data);
+                setYear(value)
+                console.log(response.data.length)
+                console.log(year)
+            }
+        } catch (error) {
+            message.error("Something went wrong")
+        }
     }
-    function onLandChange(value) {
-        console.log(`Land: ${value}`);
+    const onLandChange = async (value) => {
+        try {
+            if (year === null || year === "") {
+                const response = await axios.get(`https://api.spaceXdata.com/v3/launches?limit=200&land_success=${value}`);
+                !(response == undefined || response == null) & setMissions(response.data);
+
+            } else {
+                if (value === "") {
+                    message.warning("Landing value unset")
+                    const response = await axios.get("https://api.spaceXdata.com/v3/launches?limit=200");
+                    !(response == undefined || response == null) & setMissions(response.data);
+                } else {
+
+                    const response = await axios.get(`https://api.spaceXdata.com/v3/launches?limit=200&land_success=${value}&launch_year=${year}`);
+                    !(response == undefined || response == null) & setMissions(response.data);
+                }
+            }
+
+        } catch (error) {
+            message.error("Something went wrong")
+        }
     }
-    function onLaunchChange(value) {
-        console.log(`Launch: ${value}`);
+    const onLaunchChange = async (value) => {
+        try {
+            if (year === null || year === "") {
+                const response = await axios.get(`https://api.spaceXdata.com/v3/launches?limit=200&launch_success=${value}`);
+                !(response == undefined || response == null) & setMissions(response.data);
+
+            } else {
+                if (value === "") {
+                    message.warning("Launch value unset")
+                    const response = await axios.get("https://api.spaceXdata.com/v3/launches?limit=200");
+                    !(response == undefined || response == null) & setMissions(response.data);
+                } else {
+
+                    const response = await axios.get(`https://api.spaceXdata.com/v3/launches?limit=200&launch_success=${value}&launch_year=${year}`);
+                    !(response == undefined || response == null) & setMissions(response.data);
+                }
+            }
+
+        } catch (error) {
+            message.error("Something went wrong")
+        }
+
     }
+    // console.log(missions)
     return (
         <>
             <BackTop />
@@ -23,8 +126,10 @@ function MainPage() {
                     <Col className="h-12 p-1 sticky" span={24} sm={12} lg={6} >
                         <Row className="h-full w-full">
                             <Search
-                                placeholder="Enter the mission name"
+                                placeholder="Enter the flight number"
                                 allowClear
+                                type="number"
+
                                 enterButton="Search"
                                 size="large"
                                 onSearch={onSearch}
@@ -44,6 +149,7 @@ function MainPage() {
                                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                 }
                             >
+                                <Option value="">Not Set</Option>
                                 <Option value="2006">2006</Option>
                                 <Option value="2007">2007</Option>
                                 <Option value="2008">2008</Option>
@@ -75,6 +181,7 @@ function MainPage() {
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
                         >
+                            <Option value="">Not Set</Option>
                             <Option value="true">True</Option>
                             <Option value="false">False</Option>
                         </Select>
@@ -101,30 +208,41 @@ function MainPage() {
                 </Row>
                 <Divider />
 
-                <p>
-                    What is your essay about?
-                    There are three things to consider before writing your essay: thesis, type, and audience. Of these, the most important by far is your thesis, or the crux of what your essay is about.
+                {/* Display cards */}
 
-                    Your thesis, encapsulated in your thesis statement, is the central point you’re trying to make. The thesis of Bertrand Russell’s essay “In Praise of Idleness,” for example, is that people focus too much on work and don’t value time spent idly. Essays can occasionally stray and go into related tangents, but they always come back to that one core idea in the thesis.
+                <Row>
+                    {missions.map((mission, index) => (
 
-                    You should always pinpoint your thesis before writing. If you’re having trouble nailing it down, ask yourself, “What’s the one thing I want my reader to remember when they’re done reading my essay?”
+                        <Col key={index} className="h-64 p-1" span={24} sm={12} lg={6} >
+                            <Row className="bg-gray-50 h-full w-full border-2 rounded sm:rounded-md md:rounded-lgg hover:bg-gray-100 cursor-pointer">
+                                <Col className="h-48" span={24}>
+                                    <Row>
+                                        <Col className="p-1" span={8}>
+                                            <Image preview={false} alt={mission.mission_name} src={mission.links.mission_patch_small} />
+                                        </Col>
+                                        <Col className=" px-2" span={16}>
+                                            <h1 className="font-bold text-xl text-blue-700 my-2 pb-2"><span className="text-blue-900">#{mission.flight_number} </span>{mission.mission_name}</h1>
+                                            <h1 className="font-bold ">Launch Year:<span className="text-gray-700 font-semibold ml-2">{mission.launch_year}</span></h1>
+                                            <h1 className="font-bold ">Successful Launch:<span className="text-gray-700 font-semibold ml-2">{mission.launch_success ? "True" : "False"}</span></h1>
+                                            <h1 className="font-bold ">Successful Land:<span className="text-gray-700 font-semibold ml-2">{mission.rocket.first_stage.cores[0].land_success ? "True" : "False"}</span></h1>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                {mission.links.youtube_id &&
+                                    <Col span={24} >
+                                        <Button className="float-right mr-4" type="primary" size="large" onClick={() => showVideoModal(mission.links.youtube_id)}>
+                                            ▷    Launch Video
+                                        </Button>
+                                    </Col>
+                                }
+                            </Row>
+                        </Col>
+                    ))}
+                </Row>
 
-                    The best practice is to include your thesis as soon as possible, even in your topic sentence if it’s appropriate. You’ll want to reiterate it throughout the essay as well, especially when wrapping up everything in the conclusion.
 
-                    The rest of your essay, then, supports your thesis. You can include empirical evidence, testimonials, logical deductions, or even persuasive rhetoric—whatever gets the job done. The point is that you’re building upon your initial thesis, not switching to completely different topics.
-
-                    Types of essays
-                    Like any form of writing, essays come in many different types. Sometimes the assignment dictates the type, as with admissions essays, and other times the thesis will determine it. Regardless, it helps to know what your options are, so here are some of the most common essay types:
-
-                    Argumentative essay
-                    Argumentative essays assert or defend a position. This is the most common type of school paper, so keep that in mind when writing your first college essay.
-
-                    Admissions essay
-                    Most colleges request an admissions essay in applications, which typically revolve around why you’re interested in their school.
-
-                    Persuasive essay
-                </p>
             </div>
+            <VideoModal visible={isVideoVisible} setIsVideoVisible={setIsVideoVisible} youtubeVideo={youtubeVideo} />
         </>
     )
 }
