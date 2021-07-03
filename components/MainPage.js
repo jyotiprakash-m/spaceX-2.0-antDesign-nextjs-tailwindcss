@@ -4,22 +4,35 @@ import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
 import { YoutubeFilled } from '@ant-design/icons';
 import VideoModal from "../modals/VideoModal"
+import DescriptionModal from "../modals/DescriptionModal"
 
 const { Search } = Input;
 const { Option } = Select;
 function MainPage() {
     const [missions, setMissions] = useState([]);
     const [year, setYear] = useState(null)
-    const [youtubeVideo, setYoutubeVideo] = useState("");
-    const [videoTitle, setVideoTitle] = useState("")
 
     // Video Modal
+    const [youtubeVideo, setYoutubeVideo] = useState("");
+    const [title, setTitle] = useState("")
     const [isVideoVisible, setIsVideoVisible] = useState(false);
     const showVideoModal = (code, title) => {
         setIsVideoVisible(true);
         setYoutubeVideo(code);
-        setVideoTitle(title)
+        setTitle(title)
     };
+
+    // Description Modal
+    const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+    const [missionDetails, setMissionDetails] = useState({})
+    const showDetailsModal = (title, mission) => {
+        setIsDetailsVisible(true);
+        setTitle(title);
+        setMissionDetails(mission)
+    }
+
+
+
 
     console.log(isVideoVisible)
     // Run when the component first time load
@@ -217,7 +230,9 @@ function MainPage() {
 
                         <Col key={index} className="h-64 p-1" span={24} sm={12} lg={6} >
                             <Row className="bg-gray-50 h-full w-full border-2 rounded sm:rounded-md md:rounded-lgg hover:bg-gray-100 cursor-pointer">
-                                <Col className="h-48" span={24}>
+                                <Col className="h-48" span={24} onClick={() => {
+                                    showDetailsModal(mission.mission_name, mission);
+                                }}>
                                     <Row>
                                         <Col className="p-1" span={8}>
                                             <Image preview={false} alt={mission.mission_name} src={mission.links.mission_patch_small} />
@@ -246,7 +261,8 @@ function MainPage() {
 
 
             </div>
-            <VideoModal visible={isVideoVisible} setIsVideoVisible={setIsVideoVisible} youtubeVideo={youtubeVideo} videoTitle={videoTitle} />
+            <VideoModal visible={isVideoVisible} setIsVideoVisible={setIsVideoVisible} youtubeVideo={youtubeVideo} title={title} />
+            <DescriptionModal visible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} title={title} missionDetails={missionDetails} />
         </>
     )
 }

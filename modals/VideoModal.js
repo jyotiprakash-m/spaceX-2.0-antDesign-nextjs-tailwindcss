@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import React from 'react'
 
-function VideoModal({ visible, setIsVideoVisible, youtubeVideo, videoTitle }) {
+function VideoModal({ visible, setIsVideoVisible, youtubeVideo, title }) {
     const handleOk = () => {
         setIsVideoVisible(false);
     };
@@ -10,7 +10,7 @@ function VideoModal({ visible, setIsVideoVisible, youtubeVideo, videoTitle }) {
         setIsVideoVisible(false);
     };
     return (
-        <Modal width={900} title={videoTitle} visible={visible} onOk={handleOk} onCancel={handleCancel}>
+        <Modal width={900} title={title} visible={visible} onOk={handleOk} onCancel={handleCancel}>
             <div className="w-full h-80 md:h-80 lg:h-96">
 
                 <iframe
