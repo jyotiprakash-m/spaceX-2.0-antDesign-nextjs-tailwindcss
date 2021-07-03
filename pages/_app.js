@@ -1,6 +1,5 @@
 import 'tailwindcss/tailwind.css'
 import 'antd/dist/antd.css';
-import '../styles/globals.css'
 import { Fragment } from 'react'
 import Navbar from '../components/Navbar'
 function MyApp({ Component, pageProps }) {
