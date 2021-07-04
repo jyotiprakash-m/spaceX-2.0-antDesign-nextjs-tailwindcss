@@ -173,221 +173,227 @@ function MainPage() {
     }
     // console.log(missions)
     return (
-        <>
-            <BackTop />
-            <div className="mx-2 md:mx-4 lg:mx-8 xl:mx-16">
-                <Row>
-                    <Col span={24} className="mt-2">
-                        <Button className="float-right mr-4" type="primary" onClick={showFormModal}>
-                            ⚡ Filter
-                        </Button>
-                    </Col>
-                </Row>
-                <h2 className="font-semibold text-3xl my-2">Quick Filter</h2>
-                <Row>
-                    <Col className="h-12 p-1 sticky" span={24} sm={12} lg={6} >
-                        <Row className="h-full w-full">
-                            <Search
-                                placeholder="Enter the flight number"
-                                allowClear
-                                type="number"
-
-                                enterButton="Search"
-                                size="large"
-                                onSearch={onSearch}
-                            />
+        <div>
+            {Object.keys(missions).length === 0 ? (
+                <Loader />
+            ) : (
+                <>
+                    <BackTop />
+                    <div className="mx-2 md:mx-4 lg:mx-8 xl:mx-16">
+                        <Row>
+                            <Col span={24} className="mt-2">
+                                <Button className="float-right mr-4" type="primary" onClick={showFormModal}>
+                                    ⚡ Filter
+                                </Button>
+                            </Col>
                         </Row>
-                    </Col>
-                    <Col className="h-12 p-1" span={24} sm={12} lg={6} >
-                        <Row className="h-full w-full">
-                            <Select
-                                size="large"
-                                className="w-full"
-                                showSearch
-                                placeholder="Select the year"
-                                optionFilterProp="children"
-                                onChange={onSearchYear}
-                                filterOption={(input, option) =>
-                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                            >
-                                <Option value="">Not Set</Option>
-                                <Option value="2006">2006</Option>
-                                <Option value="2007">2007</Option>
-                                <Option value="2008">2008</Option>
-                                <Option value="2009">2009</Option>
-                                <Option value="2010">2010</Option>
-                                <Option value="2011">2011</Option>
-                                <Option value="2012">2012</Option>
-                                <Option value="2013">2013</Option>
-                                <Option value="2014">2014</Option>
-                                <Option value="2015">2015</Option>
-                                <Option value="2016">2016</Option>
-                                <Option value="2017">2017</Option>
-                                <Option value="2018">2018</Option>
-                                <Option value="2019">2019</Option>
-                                <Option value="2020">2020</Option>
+                        <h2 className="font-semibold text-3xl my-2">Quick Filter</h2>
+                        <Row>
+                            <Col className="h-12 p-1 sticky" span={24} sm={12} lg={6} >
+                                <Row className="h-full w-full">
+                                    <Search
+                                        placeholder="Enter the flight number"
+                                        allowClear
+                                        type="number"
 
-                            </Select>
+                                        enterButton="Search"
+                                        size="large"
+                                        onSearch={onSearch}
+                                    />
+                                </Row>
+                            </Col>
+                            <Col className="h-12 p-1" span={24} sm={12} lg={6} >
+                                <Row className="h-full w-full">
+                                    <Select
+                                        size="large"
+                                        className="w-full"
+                                        showSearch
+                                        placeholder="Select the year"
+                                        optionFilterProp="children"
+                                        onChange={onSearchYear}
+                                        filterOption={(input, option) =>
+                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                        }
+                                    >
+                                        <Option value="">Not Set</Option>
+                                        <Option value="2006">2006</Option>
+                                        <Option value="2007">2007</Option>
+                                        <Option value="2008">2008</Option>
+                                        <Option value="2009">2009</Option>
+                                        <Option value="2010">2010</Option>
+                                        <Option value="2011">2011</Option>
+                                        <Option value="2012">2012</Option>
+                                        <Option value="2013">2013</Option>
+                                        <Option value="2014">2014</Option>
+                                        <Option value="2015">2015</Option>
+                                        <Option value="2016">2016</Option>
+                                        <Option value="2017">2017</Option>
+                                        <Option value="2018">2018</Option>
+                                        <Option value="2019">2019</Option>
+                                        <Option value="2020">2020</Option>
+
+                                    </Select>
+                                </Row>
+                            </Col>
+                            <Col className="h-12 p-1" span={24} sm={12} lg={6} >
+                                <Select
+                                    size="large"
+                                    className="w-full"
+                                    showSearch
+                                    placeholder="Select the landing"
+                                    optionFilterProp="children"
+                                    onChange={onLandChange}
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                >
+                                    <Option value="">Not Set</Option>
+                                    <Option value="true">True</Option>
+                                    <Option value="false">False</Option>
+                                </Select>
+                            </Col>
+                            <Col className="h-12 p-1" span={24} sm={12} lg={6} >
+                                <Row className="bg-yellow-400 h-full w-full">
+                                    <Select
+                                        size="large"
+                                        className="w-full"
+                                        showSearch
+                                        placeholder="Select the Launching"
+                                        optionFilterProp="children"
+                                        onChange={onLaunchChange}
+                                        filterOption={(input, option) =>
+                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                        }
+                                    >
+                                        <Option value="">Not Set</Option>
+                                        <Option value="true">True</Option>
+                                        <Option value="false">False</Option>
+                                    </Select>
+                                </Row>
+                            </Col>
+
                         </Row>
-                    </Col>
-                    <Col className="h-12 p-1" span={24} sm={12} lg={6} >
-                        <Select
-                            size="large"
-                            className="w-full"
-                            showSearch
-                            placeholder="Select the landing"
-                            optionFilterProp="children"
-                            onChange={onLandChange}
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                        >
-                            <Option value="">Not Set</Option>
-                            <Option value="true">True</Option>
-                            <Option value="false">False</Option>
-                        </Select>
-                    </Col>
-                    <Col className="h-12 p-1" span={24} sm={12} lg={6} >
-                        <Row className="bg-yellow-400 h-full w-full">
-                            <Select
-                                size="large"
-                                className="w-full"
-                                showSearch
-                                placeholder="Select the Launching"
-                                optionFilterProp="children"
-                                onChange={onLaunchChange}
-                                filterOption={(input, option) =>
-                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                            >
-                                <Option value="">Not Set</Option>
-                                <Option value="true">True</Option>
-                                <Option value="false">False</Option>
-                            </Select>
-                        </Row>
-                    </Col>
+                        <Divider />
 
-                </Row>
-                <Divider />
+                        {/* Display cards */}
 
-                {/* Display cards */}
+                        <Row>
+                            {missions.map((mission, index) => (
 
-                <Row>
-                    {missions.map((mission, index) => (
-
-                        <Col key={index} className="h-64 p-1" span={24} sm={12} lg={6} >
-                            <Row className="bg-gray-50 h-full w-full border-2 rounded sm:rounded-md md:rounded-lgg hover:bg-gray-100 cursor-pointer">
-                                <Col className="h-48" span={24} onClick={() => {
-                                    showDetailsModal(mission.mission_name, mission);
-                                }}>
-                                    <Row>
-                                        <Col className="p-1" span={8}>
-                                            <Image preview={false} alt={mission.mission_name} src={mission.links.mission_patch_small} />
+                                <Col key={index} className="h-64 p-1" span={24} sm={12} lg={6} >
+                                    <Row className="bg-gray-50 h-full w-full border-2 rounded sm:rounded-md md:rounded-lgg hover:bg-gray-100 cursor-pointer">
+                                        <Col className="h-48" span={24} onClick={() => {
+                                            showDetailsModal(mission.mission_name, mission);
+                                        }}>
+                                            <Row>
+                                                <Col className="p-1" span={8}>
+                                                    <Image preview={false} alt={mission.mission_name} src={mission.links.mission_patch_small} />
+                                                </Col>
+                                                <Col className=" px-2" span={16}>
+                                                    <h1 className="font-bold text-xl text-blue-700 my-2 pb-2"><span className="text-blue-900">#{mission.flight_number} </span>{mission.mission_name}</h1>
+                                                    <h1 className="font-bold ">Launch Year:<span className="text-gray-700 font-semibold ml-2">{mission.launch_year}</span></h1>
+                                                    <h1 className="font-bold ">Successful Launch:<span className="text-gray-700 font-semibold ml-2">{mission.launch_success ? "True" : "False"}</span></h1>
+                                                    <h1 className="font-bold ">Successful Land:<span className="text-gray-700 font-semibold ml-2">{mission.rocket.first_stage.cores[0].land_success ? "True" : "False"}</span></h1>
+                                                </Col>
+                                            </Row>
                                         </Col>
-                                        <Col className=" px-2" span={16}>
-                                            <h1 className="font-bold text-xl text-blue-700 my-2 pb-2"><span className="text-blue-900">#{mission.flight_number} </span>{mission.mission_name}</h1>
-                                            <h1 className="font-bold ">Launch Year:<span className="text-gray-700 font-semibold ml-2">{mission.launch_year}</span></h1>
-                                            <h1 className="font-bold ">Successful Launch:<span className="text-gray-700 font-semibold ml-2">{mission.launch_success ? "True" : "False"}</span></h1>
-                                            <h1 className="font-bold ">Successful Land:<span className="text-gray-700 font-semibold ml-2">{mission.rocket.first_stage.cores[0].land_success ? "True" : "False"}</span></h1>
-                                        </Col>
+                                        {mission.links.youtube_id &&
+                                            <Col span={24} >
+                                                <Button className="float-right mr-4" type="primary" size="large" onClick={() => {
+                                                    showVideoModal(mission.links.youtube_id, mission.mission_name);
+                                                }}>
+                                                    ▷    Launch Video
+                                                </Button>
+                                            </Col>
+                                        }
                                     </Row>
                                 </Col>
-                                {mission.links.youtube_id &&
-                                    <Col span={24} >
-                                        <Button className="float-right mr-4" type="primary" size="large" onClick={() => {
-                                            showVideoModal(mission.links.youtube_id, mission.mission_name);
-                                        }}>
-                                            ▷    Launch Video
-                                        </Button>
-                                    </Col>
-                                }
-                            </Row>
-                        </Col>
-                    ))}
-                </Row>
+                            ))}
+                        </Row>
 
 
-            </div>
-            <VideoModal visible={isVideoVisible} setIsVideoVisible={setIsVideoVisible} youtubeVideo={youtubeVideo} title={title} />
-            <DescriptionModal visible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} title={title} missionDetails={missionDetails} />
-            <Modal title="Basic Modal" visible={isFormVisible} onCancel={handleCancel} footer={null}>
-                <Form form={form} name="control-hooks" onFinish={onFinish}>
+                    </div>
+                    <VideoModal visible={isVideoVisible} setIsVideoVisible={setIsVideoVisible} youtubeVideo={youtubeVideo} title={title} />
+                    <DescriptionModal visible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} title={title} missionDetails={missionDetails} />
+                    <Modal title="Basic Modal" visible={isFormVisible} onCancel={handleCancel} footer={null}>
+                        <Form form={form} name="control-hooks" onFinish={onFinish}>
 
-                    <Form.Item name="year" label="Mission Year" rules={[{ required: true }]}>
-                        <Select
-                            className="w-full"
-                            showSearch
-                            placeholder="Select the year"
-                            optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                        >
-                            <Option value="">Not Set</Option>
-                            <Option value="2006">2006</Option>
-                            <Option value="2007">2007</Option>
-                            <Option value="2008">2008</Option>
-                            <Option value="2009">2009</Option>
-                            <Option value="2010">2010</Option>
-                            <Option value="2011">2011</Option>
-                            <Option value="2012">2012</Option>
-                            <Option value="2013">2013</Option>
-                            <Option value="2014">2014</Option>
-                            <Option value="2015">2015</Option>
-                            <Option value="2016">2016</Option>
-                            <Option value="2017">2017</Option>
-                            <Option value="2018">2018</Option>
-                            <Option value="2019">2019</Option>
-                            <Option value="2020">2020</Option>
+                            <Form.Item name="year" label="Mission Year" rules={[{ required: true }]}>
+                                <Select
+                                    className="w-full"
+                                    showSearch
+                                    placeholder="Select the year"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                >
+                                    <Option value="">Not Set</Option>
+                                    <Option value="2006">2006</Option>
+                                    <Option value="2007">2007</Option>
+                                    <Option value="2008">2008</Option>
+                                    <Option value="2009">2009</Option>
+                                    <Option value="2010">2010</Option>
+                                    <Option value="2011">2011</Option>
+                                    <Option value="2012">2012</Option>
+                                    <Option value="2013">2013</Option>
+                                    <Option value="2014">2014</Option>
+                                    <Option value="2015">2015</Option>
+                                    <Option value="2016">2016</Option>
+                                    <Option value="2017">2017</Option>
+                                    <Option value="2018">2018</Option>
+                                    <Option value="2019">2019</Option>
+                                    <Option value="2020">2020</Option>
 
-                        </Select>
-                    </Form.Item>
-                    <Form.Item name="land" label="Landing" rules={[{ required: true }]}>
-                        <Select
-                            className="w-full"
-                            showSearch
-                            placeholder="Select the landing"
-                            optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                        >
-                            <Option value="true">True</Option>
-                            <Option value="false">False</Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item name="launch" label="Launching" rules={[{ required: true }]}>
-                        <Select
-                            className="w-full"
-                            showSearch
-                            placeholder="Select the Launching"
-                            optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                        >
-                            <Option value="true">True</Option>
-                            <Option value="false">False</Option>
-                        </Select>
-                    </Form.Item>
+                                </Select>
+                            </Form.Item>
+                            <Form.Item name="land" label="Landing" rules={[{ required: true }]}>
+                                <Select
+                                    className="w-full"
+                                    showSearch
+                                    placeholder="Select the landing"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                >
+                                    <Option value="true">True</Option>
+                                    <Option value="false">False</Option>
+                                </Select>
+                            </Form.Item>
+                            <Form.Item name="launch" label="Launching" rules={[{ required: true }]}>
+                                <Select
+                                    className="w-full"
+                                    showSearch
+                                    placeholder="Select the Launching"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                >
+                                    <Option value="true">True</Option>
+                                    <Option value="false">False</Option>
+                                </Select>
+                            </Form.Item>
 
 
-                    <Form.Item >
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                        <Button htmlType="button" onClick={onReset}>
-                            Reset
-                        </Button>
-                        <Button type="link" htmlType="button" onClick={onFill}>
-                            Fill form
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </Modal>
+                            <Form.Item >
+                                <Button type="primary" htmlType="submit">
+                                    Submit
+                                </Button>
+                                <Button htmlType="button" onClick={onReset}>
+                                    Reset
+                                </Button>
+                                <Button type="link" htmlType="button" onClick={onFill}>
+                                    Fill form
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </Modal>
 
-        </>
+                </>
+            )}
+        </div>
     )
 }
 
