@@ -37,11 +37,11 @@ function MainPage() {
         try {
             const { year, land, launch } = values;
             const response = await axios.get(`https://api.spaceXdata.com/v3/launches?limit=100&launch_success=${launch}&land_success=${land}&launch_year=${year}`);
-            !(response == undefined || response == null) & setMissions(response.data);
             setIsFormVisible(false);
             if (response.data.length === 0) {
                 message.warning("Data not found");
             } else {
+                !(response == undefined || response == null) & setMissions(response.data);
                 message.success("Data fetched")
             }
         } catch (error) {
