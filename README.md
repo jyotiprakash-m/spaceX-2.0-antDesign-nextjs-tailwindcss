@@ -33,4 +33,4 @@ Some Screenshots of the project
 ## Live on
 I host this application on vercel.com .
 
-> [https://space-x-nextjs-tailwindcss.vercel.app](https://space-x-nextjs-tailwindcss.vercel.app)
+> [https://spacex-2.vercel.app](https://spacex-2.vercel.app/)
