@@ -38,7 +38,7 @@ function DescriptionModal({ visible, setIsDetailsVisible, title, missionDetails 
                     </Row>
                 </Col>
                 <Col className="bg-green-700 " span={24} xs={24} md={12}>
-                    <div className="bg-white w-full h-full p-3">
+                    <div className="bg-white w-full h-full" style={{ padding: "12px" }}>
                         {/* {console.log(item)} */}
                         <div className="flex items-center gap-4 border-gray-600">
                             {missionDetails.links &&
