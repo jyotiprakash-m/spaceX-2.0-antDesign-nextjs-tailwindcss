@@ -24,9 +24,9 @@ $ npm run dev
 ## Screenshots
 Some Screenshots of the project
 
-<img src="./public/image1.JPG" title="Main Page">
+<img src="./public/image1.png" title="Main Page">
 <img src="./public/image2.png" title="Video Modal">
-<img src="./public/image3.JPG" title="Description Modal">
+<img src="./public/image3.png" title="Description Modal">
 <img src="./public/image4.png" title="Filter Modal">
 
 
