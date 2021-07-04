@@ -11,7 +11,7 @@ function VideoModal({ visible, setIsVideoVisible, youtubeVideo, title }) {
     };
     return (
         <Modal width={900} title={title} visible={visible} onOk={handleOk} onCancel={handleCancel}>
-            <div className="w-full h-80 md:h-80 lg:h-96">
+            <div className="w-full " style={{ height: "22rem" }}>
 
                 <iframe
                     id="video"

@@ -56,10 +56,10 @@ function DescriptionModal({ visible, setIsDetailsVisible, title, missionDetails 
                         <div className="my-2">
                             <h1 className="sm:text-lg font-bold border-b-2">Launch Site:</h1>
                             {missionDetails.launch_site &&
-                                <p className="sm:text-lg font-semibold text-gray-800">{missionDetails.launch_site.site_name_long}({missionDetails.launch_site.site_name})</p>
+                                <p className="sm:text-lg font-semibold text-gray-800" style={{ color: "#5f5f5f" }}>{missionDetails.launch_site.site_name_long}({missionDetails.launch_site.site_name})</p>
                             }
                             {missionDetails.launch_site &&
-                                <a href={`https://www.google.com/maps/search/?api=1&query=${missionDetails.launch_site.site_name_long}`} target="_blank"><button className="py-1 px-4 border-2 sm:text-lg border-blue-600 rounded hover:bg-blue-600 hover:text-gray-100 focus:outline-none mt-3">Open Map</button></a>
+                                <a href={`https://www.google.com/maps/search/?api=1&query=${missionDetails.launch_site.site_name_long}`} target="_blank"><Button type="primary" style={{ margin: "5px" }}>Open Map</Button></a>
                             }
                         </div>
                         <div className="my-2">
@@ -77,13 +77,13 @@ function DescriptionModal({ visible, setIsDetailsVisible, title, missionDetails 
                         <div className="my-2">
                             <h1 className="sm:text-lg font-bold border-b-2">Rocket Info:</h1>
                             {missionDetails.rocket &&
-                                <p className="sm:text-lg font-bold text-gray-800">Rocket Name:  <span className="font-semibold ml-2">{missionDetails.rocket.rocket_name}</span></p>
+                                <p className="sm:text-lg font-bold text-gray-800">Rocket Name:  <span style={{ marginLeft: "0.7rem", color: "#5f5f5f" }}>{missionDetails.rocket.rocket_name}</span></p>
                             }{missionDetails.rocket &&
 
-                                <p className="sm:text-lg font-bold text-gray-800">Rocket Id:  <span className="font-semibold ml-2">{missionDetails.rocket.rocket_id}</span></p>
+                                <p className="sm:text-lg font-bold text-gray-800">Rocket Id:  <span style={{ marginLeft: "0.7rem", color: "#5f5f5f" }}>{missionDetails.rocket.rocket_id}</span></p>
                             }{missionDetails.rocket &&
 
-                                <p className="sm:text-lg font-bold text-gray-800">Rocket Type:  <span className="font-semibold ml-2">{missionDetails.rocket.rocket_type}</span></p>
+                                <p className="sm:text-lg font-bold text-gray-800">Rocket Type:  <span style={{ marginLeft: "0.7rem", color: "#5f5f5f" }}>{missionDetails.rocket.rocket_type}</span></p>
                             }
 
                         </div>
@@ -96,20 +96,20 @@ function DescriptionModal({ visible, setIsDetailsVisible, title, missionDetails 
                         <div className="my-2">
                             <h1 className="sm:text-lg font-bold border-b-2">Refer Article:</h1>
 
-                            {missionDetails.links && missionDetails.links.article_link && <a href={missionDetails.links.article_link} target="_blank"><button className="py-1 px-4 border-2 sm:text-lg border-blue-600 rounded hover:bg-blue-600 hover:text-gray-100 focus:outline-none mt-3">Visit Page</button></a>}
+                            {missionDetails.links && missionDetails.links.article_link && <a href={missionDetails.links.article_link} target="_blank"><Button type="primary" style={{ margin: "5px" }}>Visit Page</Button></a>}
 
                         </div>
                         <div className="my-2">
                             <h1 className="sm:text-lg font-bold border-b-2">Reddit News:</h1>
-                            {missionDetails.links && missionDetails.links.reddit_campaign && <a href={missionDetails.links.reddit_campaign} target="_blank"><button className="py-1 px-4 border-2 sm:text-lg border-blue-600 rounded hover:bg-blue-600 hover:text-gray-100 focus:outline-none mt-3 mr-1">Reddit Campaign</button></a>}
-                            {missionDetails.links && missionDetails.links.reddit_launch && <a href={missionDetails.links.reddit_launch} target="_blank"><button className="py-1 px-4 border-2 sm:text-lg border-blue-600 rounded hover:bg-blue-600 hover:text-gray-100 focus:outline-none mt-3 mr-1">Reddit Launch</button></a>}
-                            {missionDetails.links && missionDetails.links.reddit_media && <a href={missionDetails.links.reddit_media} target="_blank"><button className="py-1 px-4 border-2 sm:text-lg border-blue-600 rounded hover:bg-blue-600 hover:text-gray-100 focus:outline-none mt-3 mr-1">Reddit Media</button></a>}
-                            {missionDetails.links && missionDetails.links.reddit_recovery && <a href={missionDetails.links.reddit_recovery} target="_blank"><button className="py-1 px-4 border-2 sm:text-lg border-blue-600 rounded hover:bg-blue-600 hover:text-gray-100 focus:outline-none mt-3">Reddit Recovery</button></a>}
+                            {missionDetails.links && missionDetails.links.reddit_campaign && <a href={missionDetails.links.reddit_campaign} target="_blank"><Button type="primary" style={{ margin: "5px" }}>Reddit Campaign</Button></a>}
+                            {missionDetails.links && missionDetails.links.reddit_launch && <a href={missionDetails.links.reddit_launch} target="_blank"><Button type="primary" style={{ margin: "5px" }}>Reddit Launch</Button></a>}
+                            {missionDetails.links && missionDetails.links.reddit_media && <a href={missionDetails.links.reddit_media} target="_blank"><Button type="primary" style={{ margin: "5px" }}>Reddit Media</Button></a>}
+                            {missionDetails.links && missionDetails.links.reddit_recovery && <a href={missionDetails.links.reddit_recovery} target="_blank"><Button type="primary" style={{ margin: "5px" }}>Reddit Recovery</Button></a>}
 
                         </div>
                         <div className="my-2">
                             <h1 className="sm:text-lg font-bold border-b-2">Wikipedia:</h1>
-                            {missionDetails.links && missionDetails.links.wikipedia && <a href={missionDetails.links.wikipedia} target="_blank"><button className="py-1 px-4 border-2 sm:text-lg border-blue-600 rounded hover:bg-blue-600 hover:text-gray-100 focus:outline-none mt-3 mr-1">Open Wikipedia</button></a>}
+                            {missionDetails.links && missionDetails.links.wikipedia && <a href={missionDetails.links.wikipedia} target="_blank"><Button type="primary" style={{ margin: "5px" }}>Open Wikipedia</Button></a>}
 
                         </div>
                     </div>
