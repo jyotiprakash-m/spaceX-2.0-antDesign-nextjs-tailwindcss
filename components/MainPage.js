@@ -101,7 +101,7 @@ function MainPage() {
                 } else {
 
                     !(response == undefined || response == null) & setMissions(response.data);
-                    console.log(response.data.length)
+                    // console.log(response.data.length)
                 }
             }
         } catch (err) {
@@ -119,8 +119,8 @@ function MainPage() {
                 const response = await axios.get(`https://api.spaceXdata.com/v3/launches?limit=200&launch_year=${value}`);
                 !(response == undefined || response == null) & setMissions(response.data);
                 setYear(value)
-                console.log(response.data.length)
-                console.log(year)
+                // console.log(response.data.length)
+                // console.log(year)
             }
         } catch (error) {
             message.error("Something went wrong")
