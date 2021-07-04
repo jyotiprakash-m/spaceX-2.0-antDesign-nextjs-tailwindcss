@@ -2,11 +2,12 @@
 import React from 'react'
 import { HomeFilled } from '@ant-design/icons';
 import Link from 'next/link'
+import { Image } from 'antd';
 function Navbar() {
     return (
         <header className="bg-blue-600 w-full h-14 px-4 md:px-8 flex justify-between">
             <div className="flex items-center gap-4">
-                <img src="https://cdn.icon-icons.com/icons2/2389/PNG/512/spacex_logo_icon_144865.png" className="w-14" /> <p className="font-bold text-2xl mt-5">Space-X</p>
+                <Image alt="logo" src="https://cdn.icon-icons.com/icons2/2389/PNG/512/spacex_logo_icon_144865.png" className="w-14" /> <p className="font-bold text-2xl mt-5">Space-X</p>
             </div>
             <div className="flex items-center">
                 <Link href="/">

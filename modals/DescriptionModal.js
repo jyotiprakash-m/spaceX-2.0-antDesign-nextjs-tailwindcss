@@ -21,10 +21,10 @@ function DescriptionModal({ visible, setIsDetailsVisible, title, missionDetails 
                 <Col className="bg-gray-300" span={24} xs={24} md={12}>
                     <Row>
                         <Col span={24}>
-                            {missionDetails.links && <Carousel>
+                            {missionDetails.links && <Carousel set showThumbs={false} autoPlay={true} infiniteLoop={true} interval={6000}>
                                 {missionDetails.links.flickr_images.map((img) => (
                                     <div key={img}>
-                                        <img alt={img} src={img} />
+                                        <Image preview={false} alt={img} src={img} />
                                     </div>
                                 ))}
                             </Carousel>}
@@ -40,9 +40,9 @@ function DescriptionModal({ visible, setIsDetailsVisible, title, missionDetails 
                 <Col className="bg-green-700 " span={24} xs={24} md={12}>
                     <div className="bg-white w-full h-full p-3">
                         {/* {console.log(item)} */}
-                        <div className="flex items-center gap-4 pb-2 border-b-2 border-gray-600">
+                        <div className="flex items-center gap-4 border-gray-600">
                             {missionDetails.links &&
-                                <img className="w-20" src={missionDetails.links.mission_patch_small} />
+                                <Image className="w-20" src={missionDetails.links.mission_patch_small} />
                             }
                             <div>
                                 <h1 className="text-2xl sm:text-3xl font-bold">#{missionDetails.flight_number} {missionDetails.mission_name}</h1>
@@ -50,6 +50,7 @@ function DescriptionModal({ visible, setIsDetailsVisible, title, missionDetails 
                                 {/* {moment(missionDetails.launch_date_local).calendar()} */}
                             </div>
                         </div>
+                        <Divider />
 
                         <p className="text-justify text-base sm:text-lg">{missionDetails.details}</p>
                         <div className="my-2">
