@@ -42,7 +42,7 @@ function DescriptionModal({ visible, setIsDetailsVisible, title, missionDetails 
                         {/* {console.log(item)} */}
                         <div className="flex items-center gap-4 border-gray-600">
                             {missionDetails.links &&
-                                <Image preview={false} className="w-20" src={missionDetails.links.mission_patch_small} />
+                                <Image preview={false} width={80} src={missionDetails.links.mission_patch_small} />
                             }
                             <div>
                                 <h1 className="text-2xl sm:text-3xl font-bold">#{missionDetails.flight_number} {missionDetails.mission_name}</h1>
