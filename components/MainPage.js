@@ -1,8 +1,7 @@
-import { Col, Divider, Row, Input, Select, BackTop, message, Image, Card, Button } from 'antd'
+import { Col, Divider, Row, Input, Select, BackTop, message, Image, Button, Modal, Form } from 'antd'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
-import { YoutubeFilled } from '@ant-design/icons';
 import VideoModal from "../modals/VideoModal"
 import DescriptionModal from "../modals/DescriptionModal"
 
@@ -32,9 +31,50 @@ function MainPage() {
     }
 
 
+    // filter form modal
+    const [form] = Form.useForm();
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const onFinish = async (values) => {
+        try {
+            const { year, land, launch } = values;
+            const response = await axios.get(`https://api.spaceXdata.com/v3/launches?limit=100&launch_success=${launch}&land_success=${land}&launch_year=${year}`);
+            !(response == undefined || response == null) & setMissions(response.data);
+            setIsFormVisible(false);
+            if (response.data.length === 0) {
+                message.warning("Data not found");
+            } else {
+                message.success("Data fetched")
+            }
+        } catch (error) {
+            message.error("Something went wrong")
+        }
+    };
+
+    const onReset = () => {
+        form.resetFields();
+    };
+
+    const onFill = () => {
+        form.setFieldsValue({
+            year: '2020',
+            land: 'true',
+            launch: 'true',
+        });
+    };
 
 
-    console.log(isVideoVisible)
+    const handleCancel = () => {
+        setIsFormVisible(false);
+    };
+
+    const showFormModal = () => {
+        setIsFormVisible(true)
+    }
+
+
+
+
+
     // Run when the component first time load
     useEffect(() => {
         const fetchMissions = async () => {
@@ -136,7 +176,14 @@ function MainPage() {
         <>
             <BackTop />
             <div className="mx-2 md:mx-4 lg:mx-8 xl:mx-16">
-                <h2 className="font-semibold text-3xl my-2">Filters</h2>
+                <Row>
+                    <Col span={24} className="mt-2">
+                        <Button className="float-right mr-4" type="primary" onClick={showFormModal}>
+                            ⚡ Filter
+                        </Button>
+                    </Col>
+                </Row>
+                <h2 className="font-semibold text-3xl my-2">Quick Filter</h2>
                 <Row>
                     <Col className="h-12 p-1 sticky" span={24} sm={12} lg={6} >
                         <Row className="h-full w-full">
@@ -214,6 +261,7 @@ function MainPage() {
                                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                 }
                             >
+                                <Option value="">Not Set</Option>
                                 <Option value="true">True</Option>
                                 <Option value="false">False</Option>
                             </Select>
@@ -263,6 +311,82 @@ function MainPage() {
             </div>
             <VideoModal visible={isVideoVisible} setIsVideoVisible={setIsVideoVisible} youtubeVideo={youtubeVideo} title={title} />
             <DescriptionModal visible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} title={title} missionDetails={missionDetails} />
+            <Modal title="Basic Modal" visible={isFormVisible} onCancel={handleCancel} footer={null}>
+                <Form form={form} name="control-hooks" onFinish={onFinish}>
+
+                    <Form.Item name="year" label="Mission Year" rules={[{ required: true }]}>
+                        <Select
+                            className="w-full"
+                            showSearch
+                            placeholder="Select the year"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                        >
+                            <Option value="">Not Set</Option>
+                            <Option value="2006">2006</Option>
+                            <Option value="2007">2007</Option>
+                            <Option value="2008">2008</Option>
+                            <Option value="2009">2009</Option>
+                            <Option value="2010">2010</Option>
+                            <Option value="2011">2011</Option>
+                            <Option value="2012">2012</Option>
+                            <Option value="2013">2013</Option>
+                            <Option value="2014">2014</Option>
+                            <Option value="2015">2015</Option>
+                            <Option value="2016">2016</Option>
+                            <Option value="2017">2017</Option>
+                            <Option value="2018">2018</Option>
+                            <Option value="2019">2019</Option>
+                            <Option value="2020">2020</Option>
+
+                        </Select>
+                    </Form.Item>
+                    <Form.Item name="land" label="Landing" rules={[{ required: true }]}>
+                        <Select
+                            className="w-full"
+                            showSearch
+                            placeholder="Select the landing"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                        >
+                            <Option value="true">True</Option>
+                            <Option value="false">False</Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item name="launch" label="Launching" rules={[{ required: true }]}>
+                        <Select
+                            className="w-full"
+                            showSearch
+                            placeholder="Select the Launching"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                        >
+                            <Option value="true">True</Option>
+                            <Option value="false">False</Option>
+                        </Select>
+                    </Form.Item>
+
+
+                    <Form.Item >
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                        <Button htmlType="button" onClick={onReset}>
+                            Reset
+                        </Button>
+                        <Button type="link" htmlType="button" onClick={onFill}>
+                            Fill form
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Modal>
+
         </>
     )
 }
