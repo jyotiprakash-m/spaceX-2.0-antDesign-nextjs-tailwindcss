@@ -10,7 +10,7 @@ function VideoModal({ visible, setIsVideoVisible, youtubeVideo, title }) {
         setIsVideoVisible(false);
     };
     return (
-        <Modal width={900} title={title} visible={visible} onOk={handleOk} onCancel={handleCancel}>
+        <Modal style={{ top: "20px" }} width={900} title={title} visible={visible} onOk={handleOk} onCancel={handleCancel}>
             <div className="w-full " style={{ height: "22rem" }}>
 
                 <iframe
